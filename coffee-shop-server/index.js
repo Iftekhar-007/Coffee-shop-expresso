@@ -24,6 +24,19 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+    // const database = client.db("sample_mflix");
+    // const movies = database.collection("movies");
+
+    const database = client.db("coffeeDb");
+    const coffeeCollection = database.collection("coffees");
+
+    app.post("/coffees", async (req, res) => {
+      const newCoffee = req.body;
+      const result = await coffeeCollection.insertOne(newCoffee);
+      console.log(result);
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
