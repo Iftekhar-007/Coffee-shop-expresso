@@ -1,9 +1,9 @@
 import React from "react";
-import { useLoaderData, useParams } from "react-router";
+import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 
 const UpdateCoffee = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const coffee = useLoaderData();
   console.log(coffee);
   const handleUpdateForm = (e) => {
