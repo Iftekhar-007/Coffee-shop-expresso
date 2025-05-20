@@ -6,7 +6,7 @@ const port = process.env.PORT || 5000;
 
 // console.log(process.env);
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@iftekharbases.ulu3uwc.mongodb.net/?retryWrites=true&w=majority&appName=IftekharBases`;
 
 // const uri = "mongodb+srv://<db_username>:<db_password>@iftekharbases.ulu3uwc.mongodb.net/?retryWrites=true&w=majority&appName=IftekharBases";
@@ -35,6 +35,25 @@ async function run() {
       const newCoffee = req.body;
       const result = await coffeeCollection.insertOne(newCoffee);
       console.log(result);
+      res.send(result);
+    });
+
+    app.get("/coffees/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await coffeeCollection.findOne(query);
+      res.send(result);
+    });
+
+    app.get("/coffees", async (req, res) => {
+      const result = await coffeeCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.delete("/coffees/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await coffeeCollection.deleteOne(query);
       res.send(result);
     });
     // Send a ping to confirm a successful connection

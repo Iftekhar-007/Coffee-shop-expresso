@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from "sweetalert2";
 // import formBg from "../../public/11.png";
 
 // const fromBg = <img src={"../../public/11.png"} alt="" />;
@@ -27,16 +28,32 @@ const AddCoffee = () => {
       body: JSON.stringify(coffeeData),
     })
       .then((res) => res.json())
-      .then((data) => console.log("after post", data));
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "successfully coffee added!",
+            icon: "success",
+            draggable: true,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>',
+          });
+        }
+        console.log("after post", data);
+      });
 
     // console.log(formData.entries());
   };
   return (
     <div className="bg-[url(../../public/11.png)] bg-cover bg-center py-32">
-      <h1 className="text-[45px] font-normal text-center text-black">
+      <h1 className="md:text-[45px] font-normal text-center text-black">
         Add New Coffee
       </h1>
-      <p className="text-base text-center w-[820px] mx-auto text-black">
+      <p className="text-base text-center lg:w-[820px] mx-auto text-black">
         It is a long established fact that a reader will be distraceted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -45,7 +62,7 @@ const AddCoffee = () => {
       <form onSubmit={handleAddForm}>
         <div className="w-[1080px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <fieldset className="fieldset  rounded-box   ">
+            <fieldset className="fieldset     ">
               <label className="label text-black">Name</label>
               <input
                 type="text"
@@ -54,7 +71,7 @@ const AddCoffee = () => {
                 name="name"
               />
             </fieldset>
-            <fieldset className="fieldset  rounded-box   ">
+            <fieldset className="fieldset     ">
               <label className="label text-black">Chef</label>
               <input
                 type="text"
@@ -63,7 +80,7 @@ const AddCoffee = () => {
                 name="chef"
               />
             </fieldset>
-            <fieldset className="fieldset  rounded-box   ">
+            <fieldset className="fieldset     ">
               <label className="label text-black">Supplier</label>
               <input
                 type="text"
@@ -72,7 +89,7 @@ const AddCoffee = () => {
                 name="supplier"
               />
             </fieldset>
-            <fieldset className="fieldset  rounded-box  ">
+            <fieldset className="fieldset    ">
               <label className="label text-black">Taste</label>
               <input
                 type="text"
@@ -81,7 +98,7 @@ const AddCoffee = () => {
                 name="taste"
               />
             </fieldset>
-            <fieldset className="fieldset  rounded-box  ">
+            <fieldset className="fieldset    ">
               <label className="label text-black">Category</label>
               <input
                 type="text"
@@ -90,7 +107,7 @@ const AddCoffee = () => {
                 name="category"
               />
             </fieldset>
-            <fieldset className="fieldset  rounded-box  ">
+            <fieldset className="fieldset   ">
               <label className="label text-black">Price</label>
               <input
                 type="text"
@@ -101,7 +118,7 @@ const AddCoffee = () => {
             </fieldset>
           </div>
           <div>
-            <fieldset className="fieldset  rounded-box  my-5 ">
+            <fieldset className="fieldset    my-5 ">
               <label className="label text-black">Photo</label>
               <input
                 type="text"
